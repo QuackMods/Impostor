@@ -441,13 +441,13 @@ namespace Impostor.Server.Net.Inner.Objects
 
         private async ValueTask<bool> HandleCheckColor(ClientPlayer sender, ColorType color)
         {
-            if ((byte)color > ColorsCount)
+            /*if ((byte)color > ColorsCount)
             {
                 if (await sender.Client.ReportCheatAsync(RpcCalls.CheckColor, "Client sent invalid color"))
                 {
                     return false;
                 }
-            }
+            }*/
 
             RequestedColorId.Enqueue(color);
 
@@ -456,23 +456,23 @@ namespace Impostor.Server.Net.Inner.Objects
 
         private async ValueTask<bool> HandleSetColor(ClientPlayer sender, ColorType color)
         {
-            if (Game.GameState == GameStates.Started)
+           /* if (Game.GameState == GameStates.Started)
             {
                 if (await sender.Client.ReportCheatAsync(RpcCalls.SetColor, "Client tried to set a color midgame"))
                 {
                     return false;
                 }
-            }
+            }*/
 
             if (sender.IsOwner(this))
             {
-                if (Game.Players.Any(x => x.Character != null && x.Character != this && x.Character.PlayerInfo.Color == color))
+                /*if (Game.Players.Any(x => x.Character != null && x.Character != this && x.Character.PlayerInfo.Color == color))
                 {
                     if (await sender.Client.ReportCheatAsync(RpcCalls.SetColor, "Client sent a color that is already used"))
                     {
                         return false;
                     }
-                }
+                }*/
             }
             else
             {
@@ -482,7 +482,7 @@ namespace Impostor.Server.Net.Inner.Objects
                     return false;
                 }
 
-                var expected = RequestedColorId.Dequeue();
+               /* var expected = RequestedColorId.Dequeue();
 
                 while (Game.Players.Any(x => x.Character != null && x.Character != this && x.Character.PlayerInfo.Color == expected))
                 {
@@ -494,7 +494,7 @@ namespace Impostor.Server.Net.Inner.Objects
                     _logger.LogWarning($"Client sent {nameof(RpcCalls.SetColor)} with incorrect color");
                     await SetColorAsync(expected);
                     return false;
-                }
+                }*/
             }
 
             PlayerInfo.Color = color;
@@ -504,10 +504,10 @@ namespace Impostor.Server.Net.Inner.Objects
 
         private async ValueTask<bool> HandleSetHat(ClientPlayer sender, HatType hat)
         {
-            if (Game.GameState == GameStates.Started && await sender.Client.ReportCheatAsync(RpcCalls.SetHat, "Client tried to change hat while not in lobby"))
+           /* if (Game.GameState == GameStates.Started && await sender.Client.ReportCheatAsync(RpcCalls.SetHat, "Client tried to change hat while not in lobby"))
             {
                 return false;
-            }
+            }*/
 
             PlayerInfo.Hat = hat;
 
@@ -516,10 +516,10 @@ namespace Impostor.Server.Net.Inner.Objects
 
         private async ValueTask<bool> HandleSetSkin(ClientPlayer sender, SkinType skin)
         {
-            if (Game.GameState == GameStates.Started && await sender.Client.ReportCheatAsync(RpcCalls.SetSkin, "Client tried to change skin while not in lobby"))
+           /* if (Game.GameState == GameStates.Started && await sender.Client.ReportCheatAsync(RpcCalls.SetSkin, "Client tried to change skin while not in lobby"))
             {
                 return false;
-            }
+            }*/
 
             PlayerInfo.Skin = skin;
 
@@ -571,10 +571,10 @@ namespace Impostor.Server.Net.Inner.Objects
 
         private async ValueTask<bool> HandleSetPet(ClientPlayer sender, PetType pet)
         {
-            if (Game.GameState == GameStates.Started && await sender.Client.ReportCheatAsync(RpcCalls.SetPet, "Client tried to change pet while not in lobby"))
+           /* if (Game.GameState == GameStates.Started && await sender.Client.ReportCheatAsync(RpcCalls.SetPet, "Client tried to change pet while not in lobby"))
             {
                 return false;
-            }
+            }*/
 
             PlayerInfo.Pet = pet;
 
